@@ -41,17 +41,20 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
                     </div>
                     <div class="w-full border-stroke dark:border-strokedark xl:w-1/2 xl:border-l-2">
                         <div class="w-full p-4 sm:p-12.5 xl:p-17.5">
+                            @include('template.message')
                             <span class="mb-1.5 block font-medium">Start for free</span>
                             <h2 class="mb-9 text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
                                 Sign In to DestinasiKu
                             </h2>
 
-                            <form>
+                            <form method="POST" action="{{ route('login') }}">
+                                @csrf
                                 <div class="mb-4">
                                     <label class="mb-2.5 block font-medium text-black dark:text-white">Email</label>
                                     <div class="relative">
                                         <input type="email" placeholder="Enter your email"
-                                            class="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
+                                            class="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                                            name="email" />
 
                                         <span class="absolute right-4 top-4">
                                             <svg class="fill-current" width="22" height="22" viewBox="0 0 22 22"
@@ -71,7 +74,8 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
                                         Password</label>
                                     <div class="relative">
                                         <input type="password" placeholder="6+ Characters, 1 Capital letter"
-                                            class="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
+                                            class="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                                            name="password" />
 
                                         <span class="absolute right-4 top-4">
                                             <svg class="fill-current" width="22" height="22" viewBox="0 0 22 22"

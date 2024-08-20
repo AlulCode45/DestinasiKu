@@ -17,6 +17,8 @@ return new class extends Migration {
             $table->foreignId('regency_id')->reference('id')->on('regencies');
             $table->foreignId('district_id')->reference('id')->on('districts');
             $table->foreignId('village_id')->reference('id')->on('villages');
+            $table->foreignId('destination_company_id')->reference('id')->on('destination_companies');
+            $table->integer('price');
             $table->string('description');
             $table->timestamps();
         });

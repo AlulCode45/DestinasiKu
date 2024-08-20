@@ -17,7 +17,9 @@ class RatingsFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'guest_id' => fake()->numberBetween(1, 10),
+            'destination_id' => fake()->numberBetween(1, 10),
+            'rating' => fake()->numberBetween(1, 5),
         ];
     }
 }
