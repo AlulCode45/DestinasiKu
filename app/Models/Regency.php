@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Regency extends Model
 {
     use HasFactory;
+    protected $table = 'regencies';
     protected $guarded = ['id'];
     public $timestamps = false;
 }

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class DestinationCompany extends Model
 {
     use HasFactory;
+    protected $table = 'destination_companies';
     protected $guarded = ['id'];
     public $timestamps = false;
 }
