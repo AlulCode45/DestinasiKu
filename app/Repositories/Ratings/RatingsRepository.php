@@ -17,8 +17,7 @@ class RatingsRepository implements RatingsInterface
     public function getRatings()
     {
         $ratings = $this->model->query()->sum('rating');
-        $ratings = $ratings / $this->model->query()->count();
-        return $ratings;
+        return $ratings / $this->model->query()->count();
     }
 
     public function getRatingsByDestinationId($id)
@@ -26,9 +25,8 @@ class RatingsRepository implements RatingsInterface
         $ratings = $this->model->query()
             ->where('destination_id', $id)
             ->sum('rating');
-        $ratings = $ratings / $this->model->query()
+        return $ratings / $this->model->query()
                 ->where('destination_id', $id)->count();
-        return $ratings;
     }
 
 }
