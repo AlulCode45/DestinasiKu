@@ -34,12 +34,12 @@ class DestinationRepository implements DestinationInterface
         return $this->destination->create($data);
     }
 
-    public function updateDestination($data, Destinations $destination)
+    public function updateDestination($data, $destination)
     {
         return $this->destination->query()->find($destination)->update($data);
     }
 
-    public function deleteDestination(Destinations $destination)
+    public function deleteDestination($destination)
     {
         return $this->destination->query()->find($destination)->delete();
     }
