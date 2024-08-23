@@ -2,10 +2,12 @@
 
 namespace App\Providers;
 
+use App\Interfaces\DestinationImagesInterface;
 use App\Interfaces\DestinationInterface;
 use App\Interfaces\GuestInterface;
 use App\Interfaces\RatingsInterface;
 use App\Interfaces\TestemonialsInterface;
+use App\Repositories\Destinations\DestinationImagesRepository;
 use App\Repositories\Destinations\DestinationRepository;
 use App\Repositories\Guests\GuestRepository;
 use App\Repositories\Ratings\RatingsRepository;
@@ -17,6 +19,7 @@ class AppServiceProvider extends ServiceProvider
 
     private array $register = [
         DestinationInterface::class => DestinationRepository::class,
+        DestinationImagesInterface::class => DestinationImagesRepository::class,
         GuestInterface::class => GuestRepository::class,
         RatingsInterface::class => RatingsRepository::class,
         TestemonialsInterface::class => TestemonialsRepository::class,

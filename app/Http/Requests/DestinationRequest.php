@@ -11,7 +11,7 @@ class DestinationRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -29,7 +29,8 @@ class DestinationRequest extends FormRequest
             'district_id' => 'required|integer',
             'village_id' => 'required|integer',
             'destination_company_id' => 'required|integer',
-            'price' => 'required|integer'
+            'price' => 'required|integer',
+            'image.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
     }
 
@@ -49,7 +50,11 @@ class DestinationRequest extends FormRequest
             'district_id.required' => 'Kecamatan tidak boleh kosong',
             'village_id.required' => 'Desa tidak boleh kosong',
             'destination_company_id.required' => 'Perusahaan Destinasi Wisata tidak boleh kosong',
-            'price.required' => 'Harga tidak boleh kosong'
+            'price.required' => 'Harga tidak boleh kosong',
+            'image.*.required' => 'Gambar wajib diisi',
+            'image.*.image' => 'File harus berupa gambar',
+            'image.*.mimes' => 'File harus berupa file dengan tipe: jpeg, png, jpg, gif, svg',
+            'image.*.max' => 'File harus kurang dari 2048 kilobytes',
         ];
     }
 }

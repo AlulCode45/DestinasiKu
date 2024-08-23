@@ -1,6 +1,7 @@
 @extends('template.main')
 @section('main-content')
-    <form>
+    <form action="{{ route('destinations.update', $destination->id) }}" method="POST" enctype="multipart/form-data">
+        @csrf
         <div class="bg-white p-5 shadow">
             <h2 class="text-xl"><b>Destination</b> : {{ $destination->name }}</h2>
             <div class="flex gap-5 mt-4">
@@ -12,12 +13,39 @@
                         @else
                             <img src="{{ asset('assets/default-image.webp') }}" alt="Default image" class="rounded z-1">
                         @endif
+                        <div class="absolute z-50 bg-black/50 hidden w-full h-full top-0 rounded place-content-center transition-all duration-1000 ease-in-out"
+                            id="upload-button" @click="showPrivacyPolicy = true">
+                            <svg fill="#fff" width="100px" height="100px" viewBox="0 0 24 24" id="upload"
+                                data-name="Flat Line" xmlns="http://www.w3.org/2000/svg" class="icon flat-line">
+                                <line id="primary" x1="12" y1="16" x2="12" y2="3"
+                                    style="fill: none; stroke: rgb(255, 255, 255); stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;">
+                                </line>
+                                <polyline id="primary-2" data-name="primary" points="16 7 12 3 8 7"
+                                    style="fill: none; stroke: rgb(255, 255, 255); stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;">
+                                </polyline>
+                                <path id="primary-3" data-name="primary"
+                                    d="M20,16v4a1.08,1.08,0,0,1-1.14,1H5.14A1.08,1.08,0,0,1,4,20V16"
+                                    style="fill: none; stroke: rgb(255, 255, 255); stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;">
+                                </path>
+                            </svg>
+                        </div>
                     </div>
                     <div class="flex w-full overflow-x-auto gap-3 mt-4">
                         @foreach ($destination->images as $image)
-                            <img src="{{ asset("storage/$image->image") }}" alt="Default image"
-                                class="rounded w-[calc(100%/3)]">
+                            <div class="relative w-[calc(100%/3)] rounded" id="image-container-{{ $image->id }}">
+                                <a href="{{ route('destinations.delete.image', $image->id) }}"
+                                    class="absolute hidden z-50 bg-black/50 w-full h-full top-0 rounded place-content-center transition-all duration-1000 ease-in-out"
+                                    id="delete-button-{{ $image->id }}" onclick="confirmDelete(event,this)">
+                                    <svg fill="#fff" width="30px" height="30px" viewBox="0 0 24 24"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M20,6H16V5a3,3,0,0,0-3-3H11A3,3,0,0,0,8,5V6H4A1,1,0,0,0,4,8H5V19a3,3,0,0,0,3,3h8a3,3,0,0,0,3-3V8h1a1,1,0,0,0,0-2ZM10,5a1,1,0,0,1,1-1h2a1,1,0,0,1,1,1V6H10Zm7,14a1,1,0,0,1-1,1H8a1,1,0,0,1-1-1V8H17Z" />
+                                    </svg>
+                                </a>
+                                <img src='{{ asset("storage/$image->image") }}' alt="Default image" class="rounded">
+                            </div>
                         @endforeach
+
                     </div>
                 </div>
                 <div class="w-1/2">
@@ -28,7 +56,7 @@
                             </label>
                             <input type="text" placeholder="Destination name"
                                 class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                                name="name" value="{{ $destination->name }}" readonly disabled />
+                                name="name" value="{{ $destination->name }}" />
                         </div>
                         <div>
                             <label class="mb-3 block text-sm font-medium text-black dark:text-white">
@@ -36,7 +64,7 @@
                             </label>
                             <input type="text" placeholder="Price"
                                 class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                                name="price" value="{{ $destination->price }}" readonly disabled />
+                                name="price" value="{{ $destination->price }}" />
                         </div>
                     </div>
                     <div class="mt-3">
@@ -46,8 +74,7 @@
                         <div x-data="{ isOptionSelected: false }" class="relative z-20 bg-white dark:bg-form-input">
                             <select
                                 class="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 pl-5 pr-12 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input"
-                                :class="isOptionSelected && 'text-black dark:text-white'" @change="isOptionSelected = true"
-                                readonly disabled>
+                                :class="isOptionSelected && 'text-black dark:text-white'" @change="isOptionSelected = true">
                                 @foreach (\App\Models\DestinationCompany::all() as $company)
                                     <option value="{{ $company->id }}" class="text-body">{{ $company->name }}</option>
                                 @endforeach
@@ -72,7 +99,7 @@
                             <div x-data="{ isOptionSelected: false }" class="relative z-20 bg-white dark:bg-form-input">
                                 <select
                                     class="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 pl-5 pr-12 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input"
-                                    id="province" name="province" readonly disabled>
+                                    id="province" name="province">
                                     <option value="">Select Province</option>
                                     @foreach (\App\Models\Provinces::all() as $prov)
                                         <option value="{{ $prov->id }}"
@@ -100,7 +127,7 @@
                             <div x-data="{ isOptionSelected: false }" class="relative z-20 bg-white dark:bg-form-input">
                                 <select
                                     class="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 pl-5 pr-12 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input"
-                                    name="regency" id="regency" readonly disabled>
+                                    name="regency" id="regency">
                                     <option value="{{ $destination->regency_id }}">{{ $destination->regency->name }}
                                     </option>
                                 </select>
@@ -125,7 +152,7 @@
                             <div x-data="{ isOptionSelected: false }" class="relative z-20 bg-white dark:bg-form-input">
                                 <select
                                     class="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 pl-5 pr-12 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input"
-                                    name="district" id="district" readonly disabled>
+                                    name="district" id="district">
                                     <option value="{{ $destination->district->id }}">{{ $destination->district->name }}
                                     </option>
                                 </select>
@@ -148,7 +175,7 @@
                             <div x-data="{ isOptionSelected: false }" class="relative z-20 bg-white dark:bg-form-input">
                                 <select
                                     class="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 pl-5 pr-12 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input"
-                                    name="village" id="village" readonly disabled>
+                                    name="village" id="village">
                                     <option value="{{ $destination->village_id }}">{{ $destination->village->name }}
                                     </option>
                                 </select>
@@ -170,11 +197,150 @@
                             Description
                         </label>
                         <textarea rows="6" placeholder="Description" name="description"
-                            class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                            readonly disabled>{{ $destination->description }}</textarea>
+                            class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary">{{ $destination->description }}</textarea>
                     </div>
+                    <button type="submit"
+                        class="inline-flex items-center justify-center rounded-md bg-primary px-10 py-2 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10">
+                        Simpan
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Upload Image Modal -->
+        <div x-show="showPrivacyPolicy" class="fixed z-[999] inset-0 flex items-center justify-center">
+            <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+            <div class="relative bg-white rounded-lg overflow-hidden shadow-xl max-w-screen-md w-full m-4"
+                x-transition:enter="transition ease-out duration-300 transform opacity-0 scale-95"
+                x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
+                x-transition:leave="transition ease-in duration-200 transform opacity-100 scale-100"
+                x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95" x-cloak>
+                <!-- Modal panel -->
+                <div class="px-6 py-4">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900"> Upload Destination Images </h3>
+                </div>
+                <div class="prose max-w-screen-md p-6 overflow-y-auto"
+                    style="max-height: 70vh; background-color: #fff; border: 1px solid #e2e8f0; border-radius: 0.375rem; box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);">
+                    <div class="form-group">
+                        <label class="mb-3 block text-sm font-medium text-black dark:text-white">
+                            Attach file
+                        </label>
+                        <input type="file"
+                            class="w-full cursor-pointer rounded-lg border-[1.5px] border-stroke bg-transparent font-normal outline-none transition file:mr-5 file:border-collapse file:cursor-pointer file:border-0 file:border-r file:border-solid file:border-stroke file:bg-whiter file:px-5 file:py-3 file:hover:bg-primary file:hover:bg-opacity-10 focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:file:border-form-strokedark dark:file:bg-white/30
+                            dark:file:text-black dark:focus:border-primary"
+                            name="images[]" multiple>
+                    </div>
+                </div>
+                <div class="bg-gray-50 px-4 py-3 sm:px-6 flex align-items justify-end p-4 gap-4 flex-row">
+                    <button @click="showPrivacyPolicy = false" type="button"
+                        class="inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-black text-base font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400  sm:w-auto sm:text-sm">
+                        Upload
+                    </button>
                 </div>
             </div>
         </div>
     </form>
+@endsection
+
+@section('script')
+    <script>
+        document.querySelector('#upload-image').addEventListener('mouseover', e => {
+            document.querySelector('#upload-button').classList.remove('hidden');
+            document.querySelector('#upload-button').classList.add('grid')
+        })
+        document.querySelector('#upload-image').addEventListener('mouseleave', e => {
+            document.querySelector('#upload-button').classList.remove('grid');
+            document.querySelector('#upload-button').classList.add('hidden')
+        })
+
+        document.querySelectorAll('[id^="image-container-"]').forEach(container => {
+            const id = container.id.replace('image-container-', '');
+            const deleteButton = document.querySelector(`#delete-button-${id}`);
+
+            container.addEventListener('mouseover', () => {
+                deleteButton.classList.remove('hidden');
+                deleteButton.classList.add('grid');
+            });
+
+            container.addEventListener('mouseleave', () => {
+                deleteButton.classList.remove('grid');
+                deleteButton.classList.add('hidden');
+            });
+        });
+
+        function deleteImage(event, url) {
+            event.preventDefault();
+            if (confirm('Are you sure to delete this image?')) {
+                window.location.href
+            }
+        }
+
+        $(document).ready(function() {
+            // Ketika provinsi dipilih
+            $('select[name="province"]').on('change', function() {
+                let provinceID = $(this).val();
+                if (provinceID) {
+                    $.ajax({
+                        url: '/get-regencies/' + provinceID,
+                        type: "GET",
+                        dataType: "json",
+                        success: function(data) {
+                            $('select[name="regency"]').empty();
+                            $.each(data, function(key, value) {
+                                $('select[name="regency"]').append('<option value="' +
+                                    value.id + '">' + value.name + '</option>');
+                            });
+                        }
+                    });
+                } else {
+                    $('select[name="regency"]').empty();
+                    $('select[name="district"]').empty();
+                    $('select[name="village"]').empty();
+                }
+            });
+
+            // Ketika kabupaten dipilih
+            $('select[name="regency"]').on('change', function() {
+                let regencyID = $(this).val();
+                if (regencyID) {
+                    $.ajax({
+                        url: '/get-districts/' + regencyID,
+                        type: "GET",
+                        dataType: "json",
+                        success: function(data) {
+                            $('select[name="district"]').empty();
+                            $.each(data, function(key, value) {
+                                $('select[name="district"]').append('<option value="' +
+                                    value.id + '">' + value.name + '</option>');
+                            });
+                        }
+                    });
+                } else {
+                    $('select[name="district"]').empty();
+                    $('select[name="village"]').empty();
+                }
+            });
+
+            // Ketika kecamatan dipilih
+            $('select[name="district"]').on('change', function() {
+                let districtID = $(this).val();
+                if (districtID) {
+                    $.ajax({
+                        url: '/get-villages/' + districtID,
+                        type: "GET",
+                        dataType: "json",
+                        success: function(data) {
+                            $('select[name="village"]').empty();
+                            $.each(data, function(key, value) {
+                                $('select[name="village"]').append('<option value="' +
+                                    value.id + '">' + value.name + '</option>');
+                            });
+                        }
+                    });
+                } else {
+                    $('select[name="village"]').empty();
+                }
+            });
+        });
+    </script>
 @endsection

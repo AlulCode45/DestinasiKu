@@ -1,18 +1,18 @@
 <aside :class="sidebarToggle ? 'translate-x-0' : '-translate-x-full'"
-       class="absolute left-0 top-0 z-50 flex h-screen w-72.5 flex-col overflow-y-hidden bg-black duration-300 ease-linear dark:bg-boxdark lg:static lg:translate-x-0"
-       @click.outside="sidebarToggle = false">
+    class="absolute left-0 top-0 z-50 flex h-screen w-72.5 flex-col overflow-y-hidden bg-black duration-300 ease-linear dark:bg-boxdark lg:static lg:translate-x-0"
+    @click.outside="sidebarToggle = false">
     <!-- SIDEBAR HEADER -->
     <div class="flex items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5">
         <a href="index.html">
-            <img src="{{ asset('assets/logo-white.png') }}" alt="Logo"/>
+            <img src="{{ asset('assets/logo-white.png') }}" alt="Logo" />
         </a>
 
         <button class="block lg:hidden" @click.stop="sidebarToggle = !sidebarToggle">
             <svg class="fill-current" width="20" height="18" viewBox="0 0 20 18" fill="none"
-                 xmlns="http://www.w3.org/2000/svg">
+                xmlns="http://www.w3.org/2000/svg">
                 <path
                     d="M19 8.175H2.98748L9.36248 1.6875C9.69998 1.35 9.69998 0.825 9.36248 0.4875C9.02498 0.15 8.49998 0.15 8.16248 0.4875L0.399976 8.3625C0.0624756 8.7 0.0624756 9.225 0.399976 9.5625L8.16248 17.4375C8.31248 17.5875 8.53748 17.7 8.76248 17.7C8.98748 17.7 9.17498 17.625 9.36248 17.475C9.69998 17.1375 9.69998 16.6125 9.36248 16.275L3.02498 9.8625H19C19.45 9.8625 19.825 9.4875 19.825 9.0375C19.825 8.55 19.45 8.175 19 8.175Z"
-                    fill=""/>
+                    fill="" />
             </svg>
         </button>
     </div>
@@ -29,21 +29,21 @@
                     <!-- Menu Item Dashboard -->
                     <li>
                         <a class="group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
-                           href="/dashboard">
+                            href="/dashboard">
                             <svg class="fill-current" width="18" height="18" viewBox="0 0 18 18" fill="none"
-                                 xmlns="http://www.w3.org/2000/svg">
+                                xmlns="http://www.w3.org/2000/svg">
                                 <path
                                     d="M6.10322 0.956299H2.53135C1.5751 0.956299 0.787598 1.7438 0.787598 2.70005V6.27192C0.787598 7.22817 1.5751 8.01567 2.53135 8.01567H6.10322C7.05947 8.01567 7.84697 7.22817 7.84697 6.27192V2.72817C7.8751 1.7438 7.0876 0.956299 6.10322 0.956299ZM6.60947 6.30005C6.60947 6.5813 6.38447 6.8063 6.10322 6.8063H2.53135C2.2501 6.8063 2.0251 6.5813 2.0251 6.30005V2.72817C2.0251 2.44692 2.2501 2.22192 2.53135 2.22192H6.10322C6.38447 2.22192 6.60947 2.44692 6.60947 2.72817V6.30005Z"
-                                    fill=""/>
+                                    fill="" />
                                 <path
                                     d="M15.4689 0.956299H11.8971C10.9408 0.956299 10.1533 1.7438 10.1533 2.70005V6.27192C10.1533 7.22817 10.9408 8.01567 11.8971 8.01567H15.4689C16.4252 8.01567 17.2127 7.22817 17.2127 6.27192V2.72817C17.2127 1.7438 16.4252 0.956299 15.4689 0.956299ZM15.9752 6.30005C15.9752 6.5813 15.7502 6.8063 15.4689 6.8063H11.8971C11.6158 6.8063 11.3908 6.5813 11.3908 6.30005V2.72817C11.3908 2.44692 11.6158 2.22192 11.8971 2.22192H15.4689C15.7502 2.22192 15.9752 2.44692 15.9752 2.72817V6.30005Z"
-                                    fill=""/>
+                                    fill="" />
                                 <path
                                     d="M6.10322 9.92822H2.53135C1.5751 9.92822 0.787598 10.7157 0.787598 11.672V15.2438C0.787598 16.2001 1.5751 16.9876 2.53135 16.9876H6.10322C7.05947 16.9876 7.84697 16.2001 7.84697 15.2438V11.7001C7.8751 10.7157 7.0876 9.92822 6.10322 9.92822ZM6.60947 15.272C6.60947 15.5532 6.38447 15.7782 6.10322 15.7782H2.53135C2.2501 15.7782 2.0251 15.5532 2.0251 15.272V11.7001C2.0251 11.4188 2.2501 11.1938 2.53135 11.1938H6.10322C6.38447 11.1938 6.60947 11.4188 6.60947 11.7001V15.272Z"
-                                    fill=""/>
+                                    fill="" />
                                 <path
                                     d="M15.4689 9.92822H11.8971C10.9408 9.92822 10.1533 10.7157 10.1533 11.672V15.2438C10.1533 16.2001 10.9408 16.9876 11.8971 16.9876H15.4689C16.4252 16.9876 17.2127 16.2001 17.2127 15.2438V11.7001C17.2127 10.7157 16.4252 9.92822 15.4689 9.92822ZM15.9752 15.272C15.9752 15.5532 15.7502 15.7782 15.4689 15.7782H11.8971C11.6158 15.7782 11.3908 15.5532 11.3908 15.272V11.7001C11.3908 11.4188 11.6158 11.1938 11.8971 11.1938H15.4689C15.7502 11.1938 15.9752 11.4188 15.9752 11.7001V15.272Z"
-                                    fill=""/>
+                                    fill="" />
                             </svg>
 
                             Dashboard
@@ -54,12 +54,13 @@
                     <!-- Menu Item Calendar -->
                     <li>
                         <a class="group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
-                           href="/dashboard/destinations" @click="selected = (selected === 'Calendar' ? '':'Calendar')"
-                           :class="{ 'bg-graydark dark:bg-meta-4': (selected === 'Calendar') && (page === 'calendar') }">
+                            href="/dashboard/destinations"
+                            @click="selected = (selected === 'Destinations' ? '':'Destinations')"
+                            :class="{ 'bg-graydark dark:bg-meta-4': (selected === 'Destinations') && (page === 'destinations') }">
                             <svg fill="#fff" width="18px" height="18px" viewBox="0 0 0.54 0.54"
-                                 xmlns="http://www.w3.org/2000/svg">
+                                xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"
-                                      d="M0.27 0.045c0.112 0 0.202 0.09 0.202 0.2 0 0.073 -0.061 0.151 -0.181 0.235L0.27 0.495l-0.013 -0.009C0.132 0.399 0.068 0.32 0.068 0.245 0.068 0.135 0.158 0.045 0.27 0.045m0 0.045c-0.087 0 -0.158 0.07 -0.158 0.156 0 0.054 0.052 0.12 0.158 0.195 0.106 -0.075 0.158 -0.141 0.158 -0.195 0 -0.086 -0.071 -0.156 -0.158 -0.156M0.27 0.135a0.09 0.09 0 1 1 0 0.18 0.09 0.09 0 0 1 0 -0.18m0 0.045a0.045 0.045 0 1 0 0 0.09 0.045 0.045 0 0 0 0 -0.09"/>
+                                    d="M0.27 0.045c0.112 0 0.202 0.09 0.202 0.2 0 0.073 -0.061 0.151 -0.181 0.235L0.27 0.495l-0.013 -0.009C0.132 0.399 0.068 0.32 0.068 0.245 0.068 0.135 0.158 0.045 0.27 0.045m0 0.045c-0.087 0 -0.158 0.07 -0.158 0.156 0 0.054 0.052 0.12 0.158 0.195 0.106 -0.075 0.158 -0.141 0.158 -0.195 0 -0.086 -0.071 -0.156 -0.158 -0.156M0.27 0.135a0.09 0.09 0 1 1 0 0.18 0.09 0.09 0 0 1 0 -0.18m0 0.045a0.045 0.045 0 1 0 0 0.09 0.045 0.045 0 0 0 0 -0.09" />
                             </svg>
                             Destinations
                         </a>
@@ -67,28 +68,28 @@
                     <!-- Menu Item Calendar -->
                     <li>
                         <a class="group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
-                           href="/dashboard/users" @click="selected = (selected === 'Calendar' ? '':'Calendar')"
-                           :class="{ 'bg-graydark dark:bg-meta-4': (selected === 'Calendar') && (page === 'calendar') }">
-
+                            href="/dashboard/users" @click="selected = (selected === 'Users' ? '':'Users')"
+                            :class="{ 'bg-graydark dark:bg-meta-4': (selected === 'Users') && (page === 'users') }">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
-                                 fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"
-                                 stroke-linejoin="round">
-                                <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
-                                <circle cx="9" cy="7" r="4"/>
-                                <path d="M23 21v-2a4 4 0 00-3-3.87"/>
-                                <path d="M16 3.13a4 4 0 010 7.75"/>
+                                fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+                                <circle cx="9" cy="7" r="4" />
+                                <path d="M23 21v-2a4 4 0 00-3-3.87" />
+                                <path d="M16 3.13a4 4 0 010 7.75" />
                             </svg>
                             Users
                         </a>
                     </li>
                     <li>
                         <a class="group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
-                           href="/dashboard/testimonials" @click="selected = (selected === 'Calendar' ? '':'Calendar')"
-                           :class="{ 'bg-graydark dark:bg-meta-4': (selected === 'Calendar') && (page === 'calendar') }">
+                            href="/dashboard/testimonials"
+                            @click="selected = (selected === 'Testimonials' ? '':'Testimonials')"
+                            :class="{ 'bg-graydark dark:bg-meta-4': (selected === 'Testimonials') && (page === 'testimonials') }">
                             <svg width="18px" height="18px" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"
-                                 fill="#fff">
+                                fill="#fff">
                                 <path fill-rule="evenodd" clip-rule="evenodd"
-                                      d="M7.16 3.5C4.73 5.06 3.55 6.67 3.55 9.36c.16-.05.3-.05.44-.05 1.27 0 2.5.86 2.5 2.41 0 1.61-1.03 2.61-2.5 2.61-1.9 0-2.99-1.52-2.99-4.25 0-3.8 1.75-6.53 5.02-8.42L7.16 3.5zm7 0c-2.43 1.56-3.61 3.17-3.61 5.86.16-.05.3-.05.44-.05 1.27 0 2.5.86 2.5 2.41 0 1.61-1.03 2.61-2.5 2.61-1.89 0-2.98-1.52-2.98-4.25 0-3.8 1.75-6.53 5.02-8.42l1.14 1.84h-.01z"/>
+                                    d="M7.16 3.5C4.73 5.06 3.55 6.67 3.55 9.36c.16-.05.3-.05.44-.05 1.27 0 2.5.86 2.5 2.41 0 1.61-1.03 2.61-2.5 2.61-1.9 0-2.99-1.52-2.99-4.25 0-3.8 1.75-6.53 5.02-8.42L7.16 3.5zm7 0c-2.43 1.56-3.61 3.17-3.61 5.86.16-.05.3-.05.44-.05 1.27 0 2.5.86 2.5 2.41 0 1.61-1.03 2.61-2.5 2.61-1.89 0-2.98-1.52-2.98-4.25 0-3.8 1.75-6.53 5.02-8.42l1.14 1.84h-.01z" />
                             </svg>
                             Testimonial
                         </a>

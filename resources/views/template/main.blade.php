@@ -12,6 +12,7 @@
     @yield('css')
     @vite('resources/css/app.css')
     <link href="{{ asset('assets/dashboard.css') }}" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 </head>
 
 <body
@@ -39,6 +40,7 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
         <main>
 
             <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
+                @include('template.message')
                 @yield('main-content', 'Main content')
             </div>
         </main>
@@ -47,6 +49,7 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
     <!-- ===== Content Area End ===== -->
 </div>
 <!-- ===== Page Wrapper End ===== -->
+
 <script defer src="{{ asset('assets/dashboard.js') }}"></script>
 @yield('script')
 <script>

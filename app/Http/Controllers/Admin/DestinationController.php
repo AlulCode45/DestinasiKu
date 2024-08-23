@@ -3,16 +3,22 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\DestinationRequest;
+use App\Http\Requests\ImagesRequest;
+use App\Interfaces\DestinationImagesInterface;
 use App\Interfaces\DestinationInterface;
-use App\Models\Destinations;
+use Illuminate\Http\Request;
+use Storage;
 
 class DestinationController extends Controller
 {
     private $destination;
+    private $destinationImage;
 
-    function __construct(DestinationInterface $destination)
+    function __construct(DestinationInterface $destination, DestinationImagesInterface $destinationImages)
     {
         $this->destination = $destination;
+        $this->destinationImage = $destinationImages;
     }
 
     public function index()
@@ -26,16 +32,68 @@ class DestinationController extends Controller
     public function show($destination)
     {
         $data = [
-            'destination' => $this->destination->getDestinationById($destination)
+            'destination' => $this->destination->getDestinationById($destination),
         ];
         return view('dashboard.destinations.view-destination', $data);
     }
 
-    public function delete(Destinations $destination)
+    public function destroy($destination)
     {
         if ($this->destination->deleteDestination($destination)) {
             return back()->with('success', 'Destinasi Berhasil Dihapus');
         }
+    }
 
+    public function edit($destination)
+    {
+        $data = [
+            'destination' => $this->destination->getDestinationById($destination)
+        ];
+        return view('dashboard.destinations.edit-destination', $data);
+    }
+
+    public function update(Request $request, $destination)
+    {
+        $request['province_id'] = $request->province;
+        $request['regency_id'] = $request->regency;
+        $request['district_id'] = $request->district;
+        $request['village_id'] = $request->village;
+        // Update destination
+        if ($this->destination->updateDestination($request->all(), $destination)) {
+            $files = $request->file('images');
+            $images = [];
+
+            if ($files) { // Cek jika ada file yang diunggah
+                if (is_array($files)) {
+                    foreach ($files as $file) {
+                        $fileUploaded = Storage::disk('public')->put("destinations/{$destination}", $file);
+                        $images[] = [
+                            'destination_id' => $destination,
+                            'image' => $fileUploaded,
+                        ];
+                    }
+                } else {
+                    $fileUploaded = Storage::disk('public')->put("destinations/{$destination}", $files);
+                    $images[] = [
+                        'destination_id' => $destination,
+                        'image' => $fileUploaded,
+                    ];
+                }
+                // Store the images in the database
+                $this->destinationImage->store($images);
+            }
+
+            return back()->with('success', 'Destinasi Berhasil Diubah');
+        }
+
+        // Kembalikan response jika update gagal
+        return back()->with('error', 'Gagal Mengubah Destinasi');
+    }
+    function deleteImage($id)
+    {
+        $image = $this->destinationImage->getImageById($id);
+        $this->destinationImage->delete($id);
+        Storage::disk('public')->delete($image->image);
+        return back()->with('success', 'Gambar Berhasil Dihapus');
     }
 }
