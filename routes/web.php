@@ -10,9 +10,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard.Dashboard');
-});
+Route::get('/get-regencies/{province_id}', [\App\Http\Controllers\LocationController::class, 'getRegencies']);
+Route::get('/get-districts/{regency_id}', [\App\Http\Controllers\LocationController::class, 'getDistricts']);
+Route::get('/get-villages/{district_id}', [\App\Http\Controllers\LocationController::class, 'getVillages']);
+
 
 Route::prefix('/auth')->group(function () {
     Route::get('/login', [AuthController::class, 'Login']);
@@ -29,7 +30,8 @@ Route::prefix('/dashboard')->middleware(AdminMiddleware::class)->group(function 
         Route::get('/create', [DestinationController::class, 'create'])->name('destinations.create');
         Route::post('/store', [DestinationController::class, 'store'])->name('destinations.store');
         Route::get('/{id}/edit', [DestinationController::class, 'edit'])->name('destinations.edit');
-        Route::put('/{id}/update', [DestinationController::class, 'update'])->name('destinations.update');
-        Route::delete('/{id}', [DestinationController::class, 'destroy'])->name('destinations.destroy');
+        Route::post('/{id}/update', [DestinationController::class, 'update'])->name('destinations.update');
+        Route::get('/delete/{id}', [DestinationController::class, 'destroy'])->name('destinations.destroy');
+        Route::get('/delete/image/{id}', [DestinationController::class, 'deleteImage'])->name('destinations.delete.image');
     });
 });
