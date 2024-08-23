@@ -1,18 +1,12 @@
 @extends('template.main')
 @section('main-content')
-    <form action="{{ route('destinations.update', $destination->id) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('destinations.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="bg-white p-5 shadow">
-            <h2 class="text-xl"><b>Destination</b> : {{ $destination->name }}</h2>
             <div class="flex gap-5 mt-4">
                 <div class="image w-1/2 relative">
                     <div class="relative" id="upload-image">
-                        @if (!empty($destination->images[0]))
-                            <img src="{{ asset('storage/' . $destination->images[0]['image']) }}" alt="Default image"
-                                class="rounded z-1">
-                        @else
-                            <img src="{{ asset('assets/default-image.webp') }}" alt="Default image" class="rounded z-1">
-                        @endif
+                        <img src="{{ asset('assets/default-image.webp') }}" alt="Default image" class="rounded z-1">
                         <div class="absolute z-50 bg-black/50 hidden w-full h-full top-0 rounded place-content-center transition-all duration-1000 ease-in-out"
                             id="upload-button" @click="showPrivacyPolicy = true">
                             <svg fill="#fff" width="100px" height="100px" viewBox="0 0 24 24" id="upload"
@@ -30,23 +24,6 @@
                             </svg>
                         </div>
                     </div>
-                    <div class="flex w-full overflow-x-auto gap-3 mt-4">
-                        @foreach ($destination->images as $image)
-                            <div class="relative w-[calc(100%/3)] rounded" id="image-container-{{ $image->id }}">
-                                <a href="{{ route('destinations.delete.image', $image->id) }}"
-                                    class="absolute hidden z-50 bg-black/50 w-full h-full top-0 rounded place-content-center transition-all duration-1000 ease-in-out"
-                                    id="delete-button-{{ $image->id }}" onclick="confirmDelete(event,this)">
-                                    <svg fill="#fff" width="30px" height="30px" viewBox="0 0 24 24"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M20,6H16V5a3,3,0,0,0-3-3H11A3,3,0,0,0,8,5V6H4A1,1,0,0,0,4,8H5V19a3,3,0,0,0,3,3h8a3,3,0,0,0,3-3V8h1a1,1,0,0,0,0-2ZM10,5a1,1,0,0,1,1-1h2a1,1,0,0,1,1,1V6H10Zm7,14a1,1,0,0,1-1,1H8a1,1,0,0,1-1-1V8H17Z" />
-                                    </svg>
-                                </a>
-                                <img src='{{ asset("storage/$image->image") }}' alt="Default image" class="rounded">
-                            </div>
-                        @endforeach
-
-                    </div>
                 </div>
                 <div class="w-1/2">
                     <div class="flex gap-3 w-full">
@@ -56,7 +33,7 @@
                             </label>
                             <input type="text" placeholder="Destination name"
                                 class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                                name="name" value="{{ $destination->name }}" />
+                                name="name" />
                         </div>
                         <div>
                             <label class="mb-3 block text-sm font-medium text-black dark:text-white">
@@ -64,7 +41,7 @@
                             </label>
                             <input type="text" placeholder="Price"
                                 class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                                name="price" value="{{ $destination->price }}" />
+                                name="price" />
                         </div>
                     </div>
                     <div class="mt-3">
@@ -76,6 +53,7 @@
                                 class="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 pl-5 pr-12 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input"
                                 :class="isOptionSelected && 'text-black dark:text-white'" @change="isOptionSelected = true"
                                 name="destination_company_id">
+                                <option value="">Select Vendor Destinations</option>
                                 @foreach (\App\Models\DestinationCompany::all() as $company)
                                     <option value="{{ $company->id }}" class="text-body">{{ $company->name }}</option>
                                 @endforeach
@@ -103,8 +81,7 @@
                                     id="province" name="province">
                                     <option value="">Select Province</option>
                                     @foreach (\App\Models\Provinces::all() as $prov)
-                                        <option value="{{ $prov->id }}"
-                                            {{ $prov->id == $destination->province_id ? 'selected' : '' }}>
+                                        <option value="{{ $prov->id }}">
                                             {{ $prov->name }}
                                         </option>
                                     @endforeach
@@ -129,8 +106,6 @@
                                 <select
                                     class="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 pl-5 pr-12 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input"
                                     name="regency" id="regency">
-                                    <option value="{{ $destination->regency_id }}">{{ $destination->regency->name }}
-                                    </option>
                                 </select>
                                 <span class="absolute right-4 top-1/2 z-10 -translate-y-1/2">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -154,8 +129,6 @@
                                 <select
                                     class="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 pl-5 pr-12 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input"
                                     name="district" id="district">
-                                    <option value="{{ $destination->district->id }}">{{ $destination->district->name }}
-                                    </option>
                                 </select>
                                 <span class="absolute right-4 top-1/2 z-10 -translate-y-1/2">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -177,8 +150,6 @@
                                 <select
                                     class="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 pl-5 pr-12 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input"
                                     name="village" id="village">
-                                    <option value="{{ $destination->village_id }}">{{ $destination->village->name }}
-                                    </option>
                                 </select>
                                 <span class="absolute right-4 top-1/2 z-10 -translate-y-1/2">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -198,7 +169,7 @@
                             Description
                         </label>
                         <textarea rows="6" placeholder="Description" name="description"
-                            class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary">{{ $destination->description }}</textarea>
+                            class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"></textarea>
                     </div>
                     <button type="submit"
                         class="inline-flex items-center justify-center rounded-md bg-primary px-10 py-2 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10">

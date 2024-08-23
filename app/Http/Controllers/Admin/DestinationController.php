@@ -96,4 +96,46 @@ class DestinationController extends Controller
         Storage::disk('public')->delete($image->image);
         return back()->with('success', 'Gambar Berhasil Dihapus');
     }
+    function create()
+    {
+        return view('dashboard.destinations.add-destination');
+    }
+    function store(Request $request)
+    {
+        $request['province_id'] = $request->province;
+        $request['regency_id'] = $request->regency;
+        $request['district_id'] = $request->district;
+        $request['village_id'] = $request->village;
+
+        $saveDestination = $this->destination->createDestination($request->all());
+        if ($saveDestination) {
+            $files = $request->file('images');
+            $images = [];
+
+            if ($files) { // Cek jika ada file yang diunggah
+                if (is_array($files)) {
+                    foreach ($files as $file) {
+                        $fileUploaded = Storage::disk('public')->put("destinations/{$saveDestination->id}", $file);
+                        $images[] = [
+                            'destination_id' => $saveDestination->id,
+                            'image' => $fileUploaded,
+                        ];
+                    }
+                } else {
+                    $fileUploaded = Storage::disk('public')->put("destinations/{$saveDestination->id}", $files);
+                    $images[] = [
+                        'destination_id' => $saveDestination->id,
+                        'image' => $fileUploaded,
+                    ];
+                }
+                // Store the images in the database
+                $this->destinationImage->store($images);
+            }
+
+            return redirect()->to(route('destinations.index'))->with('success', 'Destinasi Berhasil Ditambahkan');
+        }
+
+        // Kembalikan response jika update gagal
+        return back()->with('error', 'Gagal Menambahkan Destinasi');
+    }
 }

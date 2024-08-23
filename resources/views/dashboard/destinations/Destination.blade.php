@@ -6,7 +6,7 @@
     <div class="bg-white shadow p-5 rounded-md">
         <div class="flex justify-between mb-5">
             <h2 class="text-xl font-semibold">Manage destinations</h2>
-            <button class="bg-blue-500 text-white p-2 px-4 rounded-md">Add</button>
+            <a class="bg-blue-500 text-white p-2 px-4 rounded-md" href="{{ route('destinations.create') }}">Add</a>
         </div>
         <table id="example" class="table table-striped" style="width:100%">
             <thead>

@@ -26,7 +26,7 @@ Route::prefix('/dashboard')->middleware(AdminMiddleware::class)->group(function 
     Route::get('/', [AdminController::class, 'Dashboard'])->name('dashboard');
     Route::prefix('/destinations')->group(function () {
         Route::get('/', [DestinationController::class, 'index'])->name('destinations.index');
-        Route::get('/{id}', [DestinationController::class, 'show'])->name('destinations.show');
+        Route::get('/detail/{id}', [DestinationController::class, 'show'])->name('destinations.show');
         Route::get('/create', [DestinationController::class, 'create'])->name('destinations.create');
         Route::post('/store', [DestinationController::class, 'store'])->name('destinations.store');
         Route::get('/{id}/edit', [DestinationController::class, 'edit'])->name('destinations.edit');
