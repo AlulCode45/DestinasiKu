@@ -2,11 +2,13 @@
 
 namespace App\Providers;
 
+use App\Interfaces\CompanyInterface;
 use App\Interfaces\DestinationImagesInterface;
 use App\Interfaces\DestinationInterface;
 use App\Interfaces\GuestInterface;
 use App\Interfaces\RatingsInterface;
 use App\Interfaces\TestemonialsInterface;
+use App\Repositories\Company\CompanyRepository;
 use App\Repositories\Destinations\DestinationImagesRepository;
 use App\Repositories\Destinations\DestinationRepository;
 use App\Repositories\Guests\GuestRepository;
@@ -23,6 +25,7 @@ class AppServiceProvider extends ServiceProvider
         GuestInterface::class => GuestRepository::class,
         RatingsInterface::class => RatingsRepository::class,
         TestemonialsInterface::class => TestemonialsRepository::class,
+        CompanyInterface::class => CompanyRepository::class,
     ];
 
     /**

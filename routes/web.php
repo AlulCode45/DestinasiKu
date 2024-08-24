@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\Admin\DestinationController;
+use App\Http\Controllers\Admin\GuestsController;
 use App\Http\Controllers\AuthController;
 use App\Http\Middleware\AdminMiddleware;
 use Illuminate\Support\Facades\Route;
@@ -33,5 +35,15 @@ Route::prefix('/dashboard')->middleware(AdminMiddleware::class)->group(function 
         Route::post('/{id}/update', [DestinationController::class, 'update'])->name('destinations.update');
         Route::get('/delete/{id}', [DestinationController::class, 'destroy'])->name('destinations.destroy');
         Route::get('/delete/image/{id}', [DestinationController::class, 'deleteImage'])->name('destinations.delete.image');
+    });
+
+    Route::prefix('/vendor')->group(function () {
+        Route::get('/', [CompanyController::class, 'index'])->name('vendor.index');
+        Route::get('/detail/{id}', [CompanyController::class, 'show'])->name('vendor.show');
+        Route::get('/create', [CompanyController::class, 'create'])->name('vendor.create');
+        Route::post('/store', [CompanyController::class, 'store'])->name('vendor.store');
+        Route::get('/{id}/edit', [CompanyController::class, 'edit'])->name('vendor.edit');
+        Route::put('/{id}/update', [CompanyController::class, 'update'])->name('vendor.update');
+        Route::get('/delete/{id}', [CompanyController::class, 'destroy'])->name('vendor.destroy');
     });
 });

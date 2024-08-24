@@ -66,9 +66,9 @@
                         </a>
                     </li>
                     <!-- Menu Item Calendar -->
-                    <li>
+                    {{-- <li>
                         <a class="group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
-                            href="/dashboard/users" @click="selected = (selected === 'Users' ? '':'Users')"
+                            href="/dashboard/guests" @click="selected = (selected === 'Users' ? '':'Users')"
                             :class="{ 'bg-graydark dark:bg-meta-4': (selected === 'Users') && (page === 'users') }">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
                                 fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"
@@ -80,7 +80,7 @@
                             </svg>
                             Users
                         </a>
-                    </li>
+                    </li> --}}
                     <li>
                         <a class="group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
                             href="/dashboard/vendor" @click="selected = (selected === 'Vendor' ? '':'Vendor')"
