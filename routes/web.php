@@ -5,12 +5,12 @@ use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\Admin\DestinationController;
 use App\Http\Controllers\Admin\GuestsController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HomeController;
 use App\Http\Middleware\AdminMiddleware;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+Route::get('', [HomeController::class, 'index'])->name('home');
 
 Route::get('/get-regencies/{province_id}', [\App\Http\Controllers\LocationController::class, 'getRegencies']);
 Route::get('/get-districts/{regency_id}', [\App\Http\Controllers\LocationController::class, 'getDistricts']);
