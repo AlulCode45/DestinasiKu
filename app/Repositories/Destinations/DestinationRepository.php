@@ -14,12 +14,12 @@ class DestinationRepository implements DestinationInterface
         $this->destination = new Destinations();
     }
 
-    public function getDestinations()
+    public function getDestinations($limit = null)
     {
         return $this->destination
             ->query()
             ->with(['company', 'images', 'province', 'regency', 'district', 'village'])
-            ->get();
+            ->paginate($limit);
     }
 
     public function getDestinationById($destination)

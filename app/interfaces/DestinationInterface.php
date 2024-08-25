@@ -4,7 +4,7 @@ namespace App\Interfaces;
 
 interface DestinationInterface
 {
-    public function getDestinations();
+    public function getDestinations($limit = null);
 
     public function countDestinations();
 
