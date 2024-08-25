@@ -29,7 +29,8 @@
                 <a href="/" class="menu-item">About</a>
             </div>
             <div id="auth-menu" class="flex items-center gap-1">
-                <button class="bg-primary-home text-white font-semibold px-6 py-2 rounded-full">Sign in</button>
+                <a href="/auth/login" class="bg-primary-home text-white font-semibold px-6 py-2 rounded-full">Sign
+                    in</a>
                 {{-- <button class="font-semibold px-6 py-2">Sign Up</button> --}}
             </div>
         </div>
