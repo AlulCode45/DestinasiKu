@@ -28,7 +28,7 @@ class HomeController extends Controller
     function destinations()
     {
         $data = [
-            'destinations' => $this->destination->getDestinations(),
+            'destinations' => $this->destination->getDestinations(9),
         ];
         return view('destinations', $data);
     }

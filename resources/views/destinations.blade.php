@@ -92,6 +92,7 @@
                     </div>
                 @endforeach
             </div>
+            {{ $destinations->links('layouts.pagination') }}
         </main>
     </div>
     <footer>
