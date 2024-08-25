@@ -30,7 +30,7 @@
             </div>
             <div id="auth-menu" class="flex items-center gap-1">
                 <button class="bg-primary-home text-white font-semibold px-6 py-2 rounded-full">Sign in</button>
-                <button class="font-semibold px-6 py-2">Sign Up</button>
+                {{-- <button class="font-semibold px-6 py-2">Sign Up</button> --}}
             </div>
         </div>
     </nav>
@@ -104,169 +104,68 @@
             </div>
 
             <div class="grid grid-cols-3 gap-7 mt-5">
-                <div class="card">
-                    <div class="card-header">
-                        <img src="{{ asset('assets/hero-bg.jpg') }}" alt="" class="w-full rounded-xl h-[250px]">
-                        <h3 class="font-semibold text-md w-full line-clamp-2 my-3">Lorem ipsum dolor sit amet
-                            consectetur
-                            adipisicing elit.</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="flex justify-between w-full">
-                            <div class="rating flex text-gray-500 items-center gap-2">
-                                <i data-feather="star" class="w-4"></i>
-                                <span>4.5 Rating</span>
-                            </div>
-                            <div class="rating flex text-gray-500 items-center gap-2">
-                                <i data-feather="send" class="w-4"></i>
-                                <span>Malang</span>
-                            </div>
-                            <div class="rating flex text-gray-500 items-center gap-2">
-                                <i data-feather="calendar" class="w-4"></i>
-                                <span>Jul 2 - 5 </span>
-                            </div>
-                        </div>
+                @foreach ($destinations as $destination)
+                    <div class="card">
+                        <div class="card-header">
+                            @if (!empty($destination->images[0]))
+                                <img src="{{ asset('storage/' . $destination->images[0]['image']) }}"
+                                    alt="Default image" class="w-full rounded-xl h-[250px]">
+                            @else
+                                <img src="{{ asset('assets/default-image.webp') }}" alt="Default image"
+                                    class="rounded z-1 h-[250px] w-full">
+                            @endif
 
-                        <div class="price-action flex justify-between mt-4">
-                            <div class="price">
-                                <span class="text-gray-600">
-                                    <b class="text-black text-3xl font-semibold">$140</b> / Night
-                                </span>
-                                <small class="block text-gray-600">Including taxes and fees</small>
-                            </div>
-                            <button class="bg-black py-3 rounded-full px-5 text-white">View Rooms</button>
+                            <h3 class="font-semibold text-md w-full line-clamp-2 my-3">{{ $destination->name }}</h3>
                         </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header">
-                        <img src="{{ asset('assets/hero-bg.jpg') }}" alt=""
-                            class="w-full rounded-xl h-[250px]">
-                        <h3 class="font-semibold text-md w-full line-clamp-2 my-3">Lorem ipsum dolor sit amet
-                            consectetur
-                            adipisicing elit.</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="flex justify-between w-full">
-                            <div class="rating flex text-gray-500 items-center gap-2">
-                                <i data-feather="star" class="w-4"></i>
-                                <span>4.5 Rating</span>
+                        <div class="card-body">
+                            <div class="flex justify-between w-full">
+                                <div class="rating flex text-gray-500 items-center gap-2">
+                                    <i data-feather="star" class="w-4"></i>
+                                    <span>4.5 Rating</span>
+                                </div>
+                                <div class="rating flex text-gray-500 items-center gap-2">
+                                    <i data-feather="send" class="w-4"></i>
+                                    <span>{{ $destination->province->name }}</span>
+                                </div>
+                                <div class="rating flex text-gray-500 items-center gap-2">
+                                    <i data-feather="calendar" class="w-4"></i>
+                                    <span>Jul 2 - 5 </span>
+                                </div>
                             </div>
-                            <div class="rating flex text-gray-500 items-center gap-2">
-                                <i data-feather="send" class="w-4"></i>
-                                <span>Malang</span>
-                            </div>
-                            <div class="rating flex text-gray-500 items-center gap-2">
-                                <i data-feather="calendar" class="w-4"></i>
-                                <span>Jul 2 - 5 </span>
-                            </div>
-                        </div>
 
-                        <div class="price-action flex justify-between mt-4">
-                            <div class="price">
-                                <span class="text-gray-600">
-                                    <b class="text-black text-3xl font-semibold">$140</b> / Night
-                                </span>
-                                <small class="block text-gray-600">Including taxes and fees</small>
-                            </div>
-                            <button class="bg-black py-3 rounded-full px-5 text-white">View Rooms</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header">
-                        <img src="{{ asset('assets/hero-bg.jpg') }}" alt=""
-                            class="w-full rounded-xl h-[250px]">
-                        <h3 class="font-semibold text-md w-full line-clamp-2 my-3">Lorem ipsum dolor sit amet
-                            consectetur
-                            adipisicing elit.</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="flex justify-between w-full">
-                            <div class="rating flex text-gray-500 items-center gap-2">
-                                <i data-feather="star" class="w-4"></i>
-                                <span>4.5 Rating</span>
-                            </div>
-                            <div class="rating flex text-gray-500 items-center gap-2">
-                                <i data-feather="send" class="w-4"></i>
-                                <span>Malang</span>
-                            </div>
-                            <div class="rating flex text-gray-500 items-center gap-2">
-                                <i data-feather="calendar" class="w-4"></i>
-                                <span>Jul 2 - 5 </span>
+                            <div class="price-action flex justify-between mt-4">
+                                <div class="price">
+                                    <span class="text-gray-600">
+                                        <b class="text-black text-3xl font-semibold">${{ $destination->price }}</b> /
+                                        Night
+                                    </span>
+                                    <small class="block text-gray-600">Including taxes and fees</small>
+                                </div>
+                                <button class="bg-black py-3 rounded-full px-5 text-white">View Rooms</button>
                             </div>
                         </div>
-
-                        <div class="price-action flex justify-between mt-4">
-                            <div class="price">
-                                <span class="text-gray-600">
-                                    <b class="text-black text-3xl font-semibold">$140</b> / Night
-                                </span>
-                                <small class="block text-gray-600">Including taxes and fees</small>
-                            </div>
-                            <button class="bg-black py-3 rounded-full px-5 text-white">View Rooms</button>
-                        </div>
                     </div>
-                </div>
+                @endforeach
             </div>
 
             <section class="mt-16">
                 <h2 class="font-semibold text-3xl">What do they say about StayHub?</h2>
                 <div class="grid grid-cols-3 mt-5 gap-5">
-                    <div class="card border p-7 rounded-xl">
-                        <blockquote class="text-xl">
-                            Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit. Vitae reprehenderit,
-                            veniam
-                            ratione fuga laudantium quos saepe dolor eaque culpa optio. Reiciendis sint vero maxime hic
-                            quos
-                            quasi veritatis a unde?
-                        </blockquote>
-                        <div class="flex items-center gap-3 mt-8">
-                            <img src="https://ui-avatars.com/api/?background=random&name=Sandy%20Ardiansyah"
-                                alt="" class="rounded-full w-10">
-                            <div class="name">
-                                <b class="block">Sandy Ardiansyah</b>
-                                <small class="block">Founder Bangunan</small>
+                    @foreach ($testemonial as $testimoni)
+                        <div class="card border p-7 rounded-xl">
+                            <blockquote class="text-xl">
+                                {{ $testimoni->content }}
+                            </blockquote>
+                            <div class="flex items-center gap-3 mt-8">
+                                <img src="https://ui-avatars.com/api/?background=random&name={{ $testimoni->guests->name }}"
+                                    alt="" class="rounded-full w-10">
+                                <div class="name">
+                                    <b class="block">{{ $testimoni->guests->name }}</b>
+                                    <small class="block">{{ $testimoni->guests->email }}</small>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="card border p-7 rounded-xl">
-                        <blockquote class="text-xl">
-                            Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit. Vitae reprehenderit,
-                            veniam
-                            ratione fuga laudantium quos saepe dolor eaque culpa optio. Reiciendis sint vero maxime hic
-                            quos
-                            quasi veritatis a unde?
-                        </blockquote>
-                        <div class="flex items-center gap-3 mt-8">
-                            <img src="https://ui-avatars.com/api/?background=random&name=Sandy%20Ardiansyah"
-                                alt="" class="rounded-full w-10">
-                            <div class="name">
-                                <b class="block">Sandy Ardiansyah</b>
-                                <small class="block">Founder Bangunan</small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card border p-7 rounded-xl">
-                        <blockquote class="text-xl">
-                            Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit. Vitae reprehenderit,
-                            veniam
-                            ratione fuga laudantium quos saepe dolor eaque culpa optio. Reiciendis sint vero maxime hic
-                            quos
-                            quasi veritatis a unde?
-                        </blockquote>
-                        <div class="flex items-center gap-3 mt-8">
-                            <img src="https://ui-avatars.com/api/?background=random&name=Sandy%20Ardiansyah"
-                                alt="" class="rounded-full w-10">
-                            <div class="name">
-                                <b class="block">Sandy Ardiansyah</b>
-                                <small class="block">Founder Bangunan</small>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </section>
         </main>

@@ -4,7 +4,7 @@ namespace App\Interfaces;
 
 interface TestemonialsInterface
 {
-    public function getTestemonial();
+    public function getTestemonial($limit = null);
 
     public function countTestemonial();
 

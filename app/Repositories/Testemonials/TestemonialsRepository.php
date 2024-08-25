@@ -14,9 +14,11 @@ class TestemonialsRepository implements TestemonialsInterface
         $this->model = $model;
     }
 
-    public function getTestemonial()
+    public function getTestemonial($limit = null)
     {
-        return $this->model->query()->get();
+        return $this->model->query()
+            ->with(['guests', 'destinations'])
+            ->paginate($limit);
     }
 
     public function countTestemonial()
@@ -26,6 +28,8 @@ class TestemonialsRepository implements TestemonialsInterface
 
     public function getTestemonialById($id)
     {
-        return $this->model->query()->findOrFail($id);
+        return $this->model->query()
+            ->with(['guests', 'destinations'])
+            ->findOrFail($id);
     }
 }
