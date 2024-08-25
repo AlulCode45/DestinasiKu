@@ -45,64 +45,8 @@
     </div>
 
     <div class="container mx-auto">
-        <header class="w-full h-[500px] mt-4 bg-cover bg-bottom rounded-xl px-20 relative"
-            style="background-image: url({{ asset('assets/hero-bg.jpg') }});">
-            <div
-                class="bg-white w-[calc(100%-100px)] p-5 py-10 rounded-xl left-1/2 transform -translate-x-1/2 bottom-20 absolute">
-                <form action="" method="POST">
-                    @csrf
-                    <div class="grid grid-cols-6 gap-3 items-end">
-                        <div class="form-group col-span-3">
-                            <label for="" class="block font-bold text-sm mb-2">Destination Name</label>
-                            <input type="text" placeholder="Type the destinations"
-                                class="border px-4 rounded-full p-2 w-full">
-                        </div>
-                        <div class="form-group col-span-2">
-                            <label for="" class="block font-bold text-sm mb-2">Province</label>
-                            <input type="text" placeholder="Type province"
-                                class="border px-4 rounded-full p-2 w-full">
-                        </div>
-                        <div class="form-group">
-                            <label for="" class="block font-bold text-sm mb-2">Regency</label>
-                            <input type="text" placeholder="Type regency"
-                                class="border px-4 rounded-full p-2 w-full">
-                        </div>
-                    </div>
-                    <div class="flex justify-between mt-4 items-center">
-                        <small><b>Note:</b> Lorem ipsum, dolor sit amet consectetur adipisicing elit. Earum
-                            blanditiis</small>
-                        <div class="">
-                            <button
-                                class="bg-primary-home py-2 font-bold text-white rounded-full w-48 flex items-center gap-3 px-4 ">
-                                <svg fill="#fff" width="15px" height="15px" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M21.71,20.29,18,16.61A9,9,0,1,0,16.61,18l3.68,3.68a1,1,0,0,0,1.42,0A1,1,0,0,0,21.71,20.29ZM11,18a7,7,0,1,1,7-7A7,7,0,0,1,11,18Z" />
-                                </svg>
-                                Search
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </header>
-        <main class="mb-20">
-            <div class="flex justify-between items-end">
-                <h1 class="font-bold text-2xl mt-10 w-96">Holiday accomodation recommendations for you</h1>
-                <div class="filter flex gap-4">
-                    <div class="search relative">
-                        <svg fill="#000" width="15px" height="15px" viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="absolute top-1/2 left-5 transform -translate-y-1/2">
-                            <path
-                                d="M21.71,20.29,18,16.61A9,9,0,1,0,16.61,18l3.68,3.68a1,1,0,0,0,1.42,0A1,1,0,0,0,21.71,20.29ZM11,18a7,7,0,1,1,7-7A7,7,0,0,1,11,18Z" />
-                        </svg>
-                        <input type="text" placeholder="Search destions" class="px-12 rounded-full py-3 border">
-                    </div>
-                    <button class="bg-black px-5 py-1 rounded-full text-white">Search</button>
-                </div>
-            </div>
 
+        <main class="mb-20">
             <div class="grid grid-cols-3 gap-7 mt-5">
                 @foreach ($destinations as $destination)
                     <div class="card">
@@ -147,27 +91,6 @@
                     </div>
                 @endforeach
             </div>
-
-            <section class="mt-16">
-                <h2 class="font-semibold text-3xl">What do they say about StayHub?</h2>
-                <div class="grid grid-cols-3 mt-5 gap-5">
-                    @foreach ($testemonial as $testimoni)
-                        <div class="card border p-7 rounded-xl">
-                            <blockquote class="text-xl">
-                                {{ $testimoni->content }}
-                            </blockquote>
-                            <div class="flex items-center gap-3 mt-8">
-                                <img src="https://ui-avatars.com/api/?background=random&name={{ $testimoni->guests->name }}"
-                                    alt="" class="rounded-full w-10">
-                                <div class="name">
-                                    <b class="block">{{ $testimoni->guests->name }}</b>
-                                    <small class="block">{{ $testimoni->guests->email }}</small>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-            </section>
         </main>
     </div>
     <footer>
@@ -182,8 +105,7 @@
                     <div class="filter flex gap-4">
                         <div class="search relative">
                             <i data-feather="mail" class="absolute top-1/2 left-5 transform -translate-y-1/2 w-5"></i>
-                            <input type="text" placeholder="Search destions"
-                                class="px-12 rounded-full py-3 border">
+                            <input type="text" placeholder="Search destions" class="px-12 rounded-full py-3 border">
                         </div>
                         <button class="bg-black px-5 py-2 rounded-full text-white">SignUp</button>
                     </div>

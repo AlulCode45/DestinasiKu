@@ -22,7 +22,14 @@ class HomeController extends Controller
             'destinations' => $this->destination->getDestinations(3),
             'testemonial' => $this->testemonial->getTestemonial(3),
         ];
-        // dd($data);
         return view('welcome', $data);
+    }
+
+    function destinations()
+    {
+        $data = [
+            'destinations' => $this->destination->getDestinations(),
+        ];
+        return view('destinations', $data);
     }
 }
