@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\DestinationController;
 use App\Http\Controllers\Admin\GuestsController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\TestemoniController;
 use App\Http\Middleware\AdminMiddleware;
 use Illuminate\Support\Facades\Route;
 
@@ -48,5 +49,9 @@ Route::prefix('/dashboard')->middleware(AdminMiddleware::class)->group(function 
         Route::get('/{id}/edit', [CompanyController::class, 'edit'])->name('vendor.edit');
         Route::put('/{id}/update', [CompanyController::class, 'update'])->name('vendor.update');
         Route::get('/delete/{id}', [CompanyController::class, 'destroy'])->name('vendor.destroy');
+    });
+
+    Route::prefix('/testimonials')->group(function () {
+        Route::get('/', [TestemoniController::class, 'index'])->name('testemonials.index');
     });
 });
