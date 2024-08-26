@@ -48,6 +48,9 @@
     <div class="container mx-auto">
 
         <main class="mb-20">
+            @if ($destinations->total() < 1)
+                <p class="text-center mt-10">Dont show data because data not found!</p>
+            @endif
             <div class="grid grid-cols-3 gap-7 mt-5">
                 @foreach ($destinations as $destination)
                     <div class="card">

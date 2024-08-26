@@ -13,6 +13,7 @@
     <!-- choose one -->
     <script src="https://unpkg.com/feather-icons"></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 </head>
 
 <body>
@@ -50,23 +51,27 @@
             style="background-image: url({{ asset('assets/hero-bg.jpg') }});">
             <div
                 class="bg-white w-[calc(100%-100px)] p-5 py-10 rounded-xl left-1/2 transform -translate-x-1/2 bottom-20 absolute">
-                <form action="" method="POST">
-                    @csrf
+                <form action="/destinations" method="GET">
                     <div class="grid grid-cols-6 gap-3 items-end">
                         <div class="form-group col-span-3">
                             <label for="" class="block font-bold text-sm mb-2">Destination Name</label>
                             <input type="text" placeholder="Type the destinations"
-                                class="border px-4 rounded-full p-2 w-full">
+                                class="border px-4 rounded-full p-2 w-full" name="name">
                         </div>
                         <div class="form-group col-span-2">
                             <label for="" class="block font-bold text-sm mb-2">Province</label>
-                            <input type="text" placeholder="Type province"
-                                class="border px-4 rounded-full p-2 w-full">
+                            <select name="province" class="border px-4 rounded-full p-2 w-full">
+                                <option value="">Select province</option>
+                                @foreach (\App\Models\Provinces::get() as $prov)
+                                    <option value="{{ $prov->id }}">{{ $prov->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="" class="block font-bold text-sm mb-2">Regency</label>
-                            <input type="text" placeholder="Type regency"
-                                class="border px-4 rounded-full p-2 w-full">
+                            <select class="border px-4 rounded-full p-2 w-full" name="regency" id="regency">
+                                <option value="">Select Regency</option>
+                            </select>
                         </div>
                     </div>
                     <div class="flex justify-between mt-4 items-center">
@@ -234,6 +239,30 @@
     </footer>
     <script>
         feather.replace();
+        $(document).ready(function() {
+            // Ketika provinsi dipilih
+            $('select[name="province"]').on('change', function() {
+                let provinceID = $(this).val();
+                if (provinceID) {
+                    $.ajax({
+                        url: '/get-regencies/' + provinceID,
+                        type: "GET",
+                        dataType: "json",
+                        success: function(data) {
+                            $('select[name="regency"]').empty();
+                            $('select[name="regency"]').append(
+                                '<option value="">Select Regency</option>');
+                            $.each(data, function(key, value) {
+                                $('select[name="regency"]').append('<option value="' +
+                                    value.id + '">' + value.name + '</option>');
+                            });
+                        }
+                    });
+                } else {
+                    $('select[name="regency"]').empty();
+                }
+            });
+        });
     </script>
 </body>
 

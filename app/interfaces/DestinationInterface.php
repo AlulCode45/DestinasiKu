@@ -32,7 +32,7 @@ interface DestinationInterface
 
     public function getDestinationByTestemonial($testemonial);
 
-    public function getDestinationByFilter($name, $province, $regency);
+    public function getDestinationByFilter($name = null, $province = null, $regency = null);
 
     public function getDestinationBySearch($search);
 }

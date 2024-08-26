@@ -115,14 +115,24 @@ class DestinationRepository implements DestinationInterface
     }
 
     //get destination by name, province,regency
-    function getDestinationByFilter($name, $province, $regency)
+    function getDestinationByFilter($name = null, $province = null, $regency = null)
     {
         return $this->destination->query()
             ->with(['company', 'images', 'province', 'regency', 'district', 'village'])
-            ->where("name", "like", "%{$name}%")
-            ->where("province_id", "like", "%{$province}%")
-            ->where("regency_id", "like", "%{$regency}%")
-            ->get();
+            ->where(function ($query) use ($name, $province, $regency) {
+                if ($name) {
+                    $query->where("name", "like", "%{$name}%");
+                }
+                if ($province) {
+                    $query->orWhere("province_id", $province);
+                }
+                if ($regency) {
+                    $query->orWhere("regency_id", $regency);
+                }
+            })
+            ->orderBy('id', 'DESC')
+            ->paginate(9);
+
     }
 
     function countDestinations()

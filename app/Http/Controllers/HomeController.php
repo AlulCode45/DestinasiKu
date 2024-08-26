@@ -25,10 +25,13 @@ class HomeController extends Controller
         return view('welcome', $data);
     }
 
-    function destinations()
+    function destinations(Request $request)
     {
+        $province = $request->province;
+        $regency = $request->regency;
+        $name = $request->name;
         $data = [
-            'destinations' => $this->destination->getDestinations(9),
+            'destinations' => $this->destination->getDestinationByFilter($name, $province, $regency),
         ];
         return view('destinations', $data);
     }
