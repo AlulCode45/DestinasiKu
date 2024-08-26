@@ -9,4 +9,6 @@ interface TestemonialsInterface
     public function countTestemonial();
 
     public function getTestemonialById($id);
+    public function getTestemonialByDestinationId($destination);
+    public function storeTestimony($data);
 }

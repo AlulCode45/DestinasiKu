@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Interfaces\DestinationInterface;
 use App\Interfaces\TestemonialsInterface;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -34,5 +35,32 @@ class HomeController extends Controller
             'destinations' => $this->destination->getDestinationByFilter($name, $province, $regency),
         ];
         return view('destinations', $data);
+    }
+    function viewDestination($destination)
+    {
+        $destination = $this->destination->getDestinationById($destination);
+        $data = [
+            'destination' => $destination,
+            'testemonial' => $this->testemonial->getTestemonialByDestinationId($destination->id),
+        ];
+        if ($destination) {
+            return view('view-destination', $data);
+        } else {
+            return redirect()->route('home')->with('error', 'Destination not found');
+        }
+    }
+    function storeTestimony(Request $request, $destination)
+    {
+        $request->validate([
+            'name' => 'required',
+            'content' => 'required',
+        ]);
+        $data = [
+            'name' => $request->name,
+            'content' => $request->content,
+            'destination_id' => $destination,
+        ];
+        $this->testemonial->storeTestimony($data);
+        return back()->with('success', 'Testimony added');
     }
 }

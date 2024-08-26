@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('', [HomeController::class, 'index'])->name('home');
 Route::get('/destinations', [HomeController::class, 'destinations'])->name('destinations');
+Route::get('/destinations/{id}', [HomeController::class, 'viewDestination'])->name('view-destination');
+Route::post('/destinations/{id}/testimony', [HomeController::class, 'storeTestimony'])->name('store-testimony');
 
 Route::get('/get-regencies/{province_id}', [\App\Http\Controllers\LocationController::class, 'getRegencies']);
 Route::get('/get-districts/{regency_id}', [\App\Http\Controllers\LocationController::class, 'getDistricts']);

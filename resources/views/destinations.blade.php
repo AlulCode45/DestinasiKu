@@ -89,7 +89,9 @@
                                     </span>
                                     <small class="block text-gray-600">Including taxes and fees</small>
                                 </div>
-                                <button class="bg-black py-3 rounded-full px-5 text-white">View Rooms</button>
+                                <a href="/destinations/{{ $destination->id }}">
+                                    <button class="bg-black py-3 rounded-full px-5 text-white">View Rooms</button>
+                                </a>
                             </div>
                         </div>
                     </div>

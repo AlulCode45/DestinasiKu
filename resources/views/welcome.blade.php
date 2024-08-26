@@ -148,7 +148,9 @@
                                     </span>
                                     <small class="block text-gray-600">Including taxes and fees</small>
                                 </div>
-                                <button class="bg-black py-3 rounded-full px-5 text-white">View Rooms</button>
+                                <a href="/destinations/{{ $destination->id }}">
+                                    <button class="bg-black py-3 rounded-full px-5 text-white">View Rooms</button>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -164,11 +166,11 @@
                                 {{ $testimoni->content }}
                             </blockquote>
                             <div class="flex items-center gap-3 mt-8">
-                                <img src="https://ui-avatars.com/api/?background=random&name={{ $testimoni->guests->name }}"
+                                <img src="https://ui-avatars.com/api/?background=random&name={{ $testimoni->name }}"
                                     alt="" class="rounded-full w-10">
                                 <div class="name">
-                                    <b class="block">{{ $testimoni->guests->name }}</b>
-                                    <small class="block">{{ $testimoni->guests->email }}</small>
+                                    <b class="block">{{ $testimoni->name }}</b>
+                                    <small class="block">{{ $testimoni->destinations?->name }}</small>
                                 </div>
                             </div>
                         </div>

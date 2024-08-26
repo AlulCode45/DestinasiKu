@@ -33,4 +33,16 @@ class TestemonialsRepository implements TestemonialsInterface
             ->with(['guests', 'destinations'])
             ->findOrFail($id);
     }
+    function getTestemonialByDestinationId($destination)
+    {
+        return $this->model->query()
+            ->with(['guests', 'destinations'])
+            ->where('destination_id', $destination)
+            ->orderBy('id', 'DESC')
+            ->get();
+    }
+    function storeTestimony($data)
+    {
+        return $this->model->query()->create($data);
+    }
 }
