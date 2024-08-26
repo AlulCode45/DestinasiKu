@@ -18,6 +18,7 @@ class TestemonialsRepository implements TestemonialsInterface
     {
         return $this->model->query()
             ->with(['guests', 'destinations'])
+            ->orderBy('id', 'DESC')
             ->paginate($limit);
     }
 

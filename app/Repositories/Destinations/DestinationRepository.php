@@ -19,6 +19,7 @@ class DestinationRepository implements DestinationInterface
         return $this->destination
             ->query()
             ->with(['company', 'images', 'province', 'regency', 'district', 'village'])
+            ->orderBy('id', 'DESC')
             ->paginate($limit);
     }
 

@@ -73,8 +73,8 @@
                                     <span>{{ $destination->province->name }}</span>
                                 </div>
                                 <div class="rating flex text-gray-500 items-center gap-2">
-                                    <i data-feather="calendar" class="w-4"></i>
-                                    <span>Jul 2 - 5 </span>
+                                    <i data-feather="command" class="w-4"></i>
+                                    <span>{{ Str::substr($destination->company->name, 0, 10) }} ...</span>
                                 </div>
                             </div>
 
