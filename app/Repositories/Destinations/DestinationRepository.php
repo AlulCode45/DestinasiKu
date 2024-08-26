@@ -106,11 +106,11 @@ class DestinationRepository implements DestinationInterface
         return $this->destination->query()
             ->with(['company', 'images', 'province', 'regency', 'district', 'village'])
             ->where("name", "like", "%{$search}%")
-            ->orWhere("province_id", "like", "%{$search}%")
-            ->orWhere("regency_id", "like", "%{$search}%")
-            ->orWhere("district_id", "like", "%{$search}%")
-            ->orWhere("village_id", "like", "%{$search}%")
-            ->orWhere("destination_company_id", "like", "%{$search}%")
+            ->orWhere("province.name", "like", "%{$search}%")
+            ->orWhere("regency.name", "like", "%{$search}%")
+            ->orWhere("district.name", "like", "%{$search}%")
+            ->orWhere("villages.name", "like", "%{$search}%")
+            ->orWhere("destination_companies.name", "like", "%{$search}%")
             ->get();
     }
 
