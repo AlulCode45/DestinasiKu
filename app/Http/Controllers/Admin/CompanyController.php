@@ -39,6 +39,11 @@ class CompanyController extends Controller
      */
     public function store(CompanyRequest $request)
     {
+        $request->validate([
+            'name' => 'unique:destination_companies,name'
+        ], [
+            'name.unique' => 'Company name already exists'
+        ]);
         $this->companyRepository->createCompany($request->all());
         return redirect()->route('vendor.index')->with('success', 'Company created successfully');
     }
@@ -70,6 +75,11 @@ class CompanyController extends Controller
      */
     public function update(CompanyRequest $request, string $id)
     {
+        $request->validate([
+            'name' => 'unique:destination_companies,name'
+        ], [
+            'name.unique' => 'Company name already exists'
+        ]);
         $this->companyRepository->updateCompany($id, $request->all());
         return redirect()->route('vendor.index')->with('success', 'Company updated successfully');
     }

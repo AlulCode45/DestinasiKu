@@ -98,12 +98,6 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
                                         class="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 font-medium text-white transition hover:bg-opacity-90" />
                                 </div>
 
-                                <div class="mt-6 text-center">
-                                    <p class="font-medium">
-                                        Don’t have any account?
-                                        <a href="signup.html" class="text-primary">Sign Up</a>
-                                    </p>
-                                </div>
                             </form>
                         </div>
                     </div>

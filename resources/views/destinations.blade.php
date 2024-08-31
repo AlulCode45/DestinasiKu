@@ -13,6 +13,7 @@
     <!-- choose one -->
     <script src="https://unpkg.com/feather-icons"></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 </head>
 
 <body>
@@ -46,8 +47,49 @@
     </div>
 
     <div class="container mx-auto">
-
         <main class="mb-20">
+            <div class="bg-white w-full p-5 py-10 rounded-xl shadow-lg mt-10 border">
+                <form action="/destinations" method="GET">
+                    <div class="grid grid-cols-6 gap-3 items-end">
+                        <div class="form-group col-span-3">
+                            <label for="" class="block font-bold text-sm mb-2">Destination Name</label>
+                            <input type="text" placeholder="Type the destinations"
+                                class="border px-4 rounded-full p-2 w-full" name="name">
+                        </div>
+                        <div class="form-group col-span-2">
+                            <label for="" class="block font-bold text-sm mb-2">Province</label>
+                            <select name="province" class="border px-4 rounded-full p-2 w-full">
+                                <option value="">Select province</option>
+                                @foreach (\App\Models\Provinces::get() as $prov)
+                                    <option value="{{ $prov->id }}">{{ $prov->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="block font-bold text-sm mb-2">Regency</label>
+                            <select class="border px-4 rounded-full p-2 w-full" name="regency" id="regency">
+                                <option value="">Select Regency</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="flex justify-between mt-4 items-center">
+                        <small><b>Note:</b> Lorem ipsum, dolor sit amet consectetur adipisicing elit. Earum
+                            blanditiis</small>
+                        <div class="">
+                            <button
+                                class="bg-primary-home py-2 font-bold text-white rounded-full w-48 flex items-center gap-3 px-4 ">
+                                <svg fill="#fff" width="15px" height="15px" viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M21.71,20.29,18,16.61A9,9,0,1,0,16.61,18l3.68,3.68a1,1,0,0,0,1.42,0A1,1,0,0,0,21.71,20.29ZM11,18a7,7,0,1,1,7-7A7,7,0,0,1,11,18Z" />
+                                </svg>
+                                Search
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
             @if ($destinations->total() < 1)
                 <p class="text-center mt-10">Dont show data because data not found!</p>
             @endif
@@ -112,7 +154,8 @@
                     <div class="filter flex gap-4">
                         <div class="search relative">
                             <i data-feather="mail" class="absolute top-1/2 left-5 transform -translate-y-1/2 w-5"></i>
-                            <input type="text" placeholder="Search destions" class="px-12 rounded-full py-3 border">
+                            <input type="text" placeholder="Search destions"
+                                class="px-12 rounded-full py-3 border">
                         </div>
                         <button class="bg-black px-5 py-2 rounded-full text-white">SignUp</button>
                     </div>
@@ -162,6 +205,30 @@
     </footer>
     <script>
         feather.replace();
+        $(document).ready(function() {
+            // Ketika provinsi dipilih
+            $('select[name="province"]').on('change', function() {
+                let provinceID = $(this).val();
+                if (provinceID) {
+                    $.ajax({
+                        url: '/get-regencies/' + provinceID,
+                        type: "GET",
+                        dataType: "json",
+                        success: function(data) {
+                            $('select[name="regency"]').empty();
+                            $('select[name="regency"]').append(
+                                '<option value="">Select Regency</option>');
+                            $.each(data, function(key, value) {
+                                $('select[name="regency"]').append('<option value="' +
+                                    value.id + '">' + value.name + '</option>');
+                            });
+                        }
+                    });
+                } else {
+                    $('select[name="regency"]').empty();
+                }
+            });
+        });
     </script>
 </body>
 

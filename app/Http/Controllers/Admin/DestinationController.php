@@ -58,6 +58,14 @@ class DestinationController extends Controller
         $request['regency_id'] = $request->regency;
         $request['district_id'] = $request->district;
         $request['village_id'] = $request->village;
+
+        $request->validate([
+            'name' => "unique:destinations,name,$destination",
+            'images' => 'required'
+        ], [
+            'name.unique' => 'Destination name already exists',
+            'images.required' => 'Image is required'
+        ]);
         // Update destination
         if ($this->destination->updateDestination($request->all(), $destination)) {
             $files = $request->file('images');
@@ -83,7 +91,7 @@ class DestinationController extends Controller
                 $this->destinationImage->store($images);
             }
 
-            return back()->with('success', 'Destinasi Berhasil Diubah');
+            return redirect()->to(route('destinations'))->with('success', 'Destinasi Berhasil Diubah');
         }
 
         // Kembalikan response jika update gagal
@@ -106,6 +114,14 @@ class DestinationController extends Controller
         $request['regency_id'] = $request->regency;
         $request['district_id'] = $request->district;
         $request['village_id'] = $request->village;
+
+        $request->validate([
+            'name' => "unique:destinations,name",
+            'images' => 'required'
+        ], [
+            'name.unique' => 'Destination name already exists',
+            'images.required' => 'Image is required'
+        ]);
 
         $saveDestination = $this->destination->createDestination($request->all());
         if ($saveDestination) {

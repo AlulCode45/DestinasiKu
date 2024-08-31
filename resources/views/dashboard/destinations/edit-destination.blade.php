@@ -52,30 +52,30 @@
                     <div class="flex gap-3 w-full">
                         <div>
                             <label class="mb-3 block text-sm font-medium text-black dark:text-white">
-                                Destination Name
+                                Destination Name <span class="text-red-600">*</span>
                             </label>
                             <input type="text" placeholder="Destination name"
                                 class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                                name="name" value="{{ $destination->name }}" />
+                                name="name" value="{{ $destination->name }}" required />
                         </div>
                         <div>
                             <label class="mb-3 block text-sm font-medium text-black dark:text-white">
-                                Price ($)<small class="text-gray-300"> /night</small>
+                                Price ($)<small class="text-gray-300"> /night</small> <span class="text-red-600">*</span>
                             </label>
                             <input type="text" placeholder="Price"
                                 class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                                name="price" value="{{ $destination->price }}" />
+                                name="price" value="{{ $destination->price }}" required />
                         </div>
                     </div>
                     <div class="mt-3">
                         <label class="mb-3 block text-sm font-medium text-black dark:text-white">
-                            Vendor Destination
+                            Vendor Destination <span class="text-red-600">*</span>
                         </label>
                         <div x-data="{ isOptionSelected: false }" class="relative z-20 bg-white dark:bg-form-input">
                             <select
                                 class="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 pl-5 pr-12 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input"
                                 :class="isOptionSelected && 'text-black dark:text-white'" @change="isOptionSelected = true"
-                                name="destination_company_id">
+                                name="destination_company_id" required>
                                 @foreach (\App\Models\DestinationCompany::all() as $company)
                                     <option value="{{ $company->id }}" class="text-body">{{ $company->name }}</option>
                                 @endforeach
@@ -95,12 +95,12 @@
                     <div class="flex mt-3 gap-3">
                         <div class="w-full">
                             <label class="mb-3 block text-sm font-medium text-black dark:text-white">
-                                Province
+                                Province <span class="text-red-600">*</span>
                             </label>
                             <div x-data="{ isOptionSelected: false }" class="relative z-20 bg-white dark:bg-form-input">
                                 <select
                                     class="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 pl-5 pr-12 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input"
-                                    id="province" name="province">
+                                    id="province" name="province" required>
                                     <option value="">Select Province</option>
                                     @foreach (\App\Models\Provinces::all() as $prov)
                                         <option value="{{ $prov->id }}"
@@ -123,12 +123,12 @@
                         </div>
                         <div class="w-full">
                             <label class="mb-3 block text-sm font-medium text-black dark:text-white">
-                                Regency
+                                Regency <span class="text-red-600">*</span>
                             </label>
                             <div x-data="{ isOptionSelected: false }" class="relative z-20 bg-white dark:bg-form-input">
                                 <select
                                     class="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 pl-5 pr-12 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input"
-                                    name="regency" id="regency">
+                                    name="regency" id="regency" required>
                                     <option value="{{ $destination->regency_id }}">{{ $destination->regency->name }}
                                     </option>
                                 </select>
@@ -148,12 +148,12 @@
                     <div class="flex mt-3 gap-3">
                         <div class="w-full">
                             <label class="mb-3 block text-sm font-medium text-black dark:text-white">
-                                District
+                                District <span class="text-red-600">*</span>
                             </label>
                             <div x-data="{ isOptionSelected: false }" class="relative z-20 bg-white dark:bg-form-input">
                                 <select
                                     class="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 pl-5 pr-12 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input"
-                                    name="district" id="district">
+                                    name="district" id="district" required>
                                     <option value="{{ $destination->district->id }}">{{ $destination->district->name }}
                                     </option>
                                 </select>
@@ -171,12 +171,12 @@
                         </div>
                         <div class="w-full">
                             <label class="mb-3 block text-sm font-medium text-black dark:text-white">
-                                Village
+                                Village <span class="text-red-600">*</span>
                             </label>
                             <div x-data="{ isOptionSelected: false }" class="relative z-20 bg-white dark:bg-form-input">
                                 <select
                                     class="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 pl-5 pr-12 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input"
-                                    name="village" id="village">
+                                    name="village" id="village" required>
                                     <option value="{{ $destination->village_id }}">{{ $destination->village->name }}
                                     </option>
                                 </select>
@@ -195,10 +195,11 @@
                     </div>
                     <div class="mt-3">
                         <label class="mb-3 block text-sm font-medium text-black dark:text-white">
-                            Description
+                            Description <span class="text-red-600">*</span>
                         </label>
                         <textarea rows="6" placeholder="Description" name="description"
-                            class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary">{{ $destination->description }}</textarea>
+                            class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                            required>{{ $destination->description }}</textarea>
                     </div>
                     <button type="submit"
                         class="inline-flex items-center justify-center rounded-md bg-primary px-10 py-2 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10">

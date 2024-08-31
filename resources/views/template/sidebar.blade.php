@@ -20,7 +20,7 @@
 
     <div class="no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear">
         <!-- Sidebar Menu -->
-        <nav class="mt-5 px-4 py-4 lg:mt-9 lg:px-6" x-data="{ selected: $persist('Dashboard') }">
+        <nav class="mt-5 px-4 py-4 lg:mt-9 lg:px-6" x-data="{ selected: '{{ Request::segment(2) }}' }">
             <!-- Menu Group -->
             <div>
                 <h3 class="mb-4 ml-4 text-sm font-medium text-bodydark2">MENU</h3>
@@ -28,9 +28,10 @@
                 <ul class="mb-6 flex flex-col gap-1.5">
                     <!-- Menu Item Dashboard -->
                     <li>
-                        <a class="group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
-                            href="/dashboard">
-                            <svg class="fill-current" width="18" height="18" viewBox="0 0 18 18" fill="none"
+                        <a href="/dashboard" @click="selected = 'dashboard'"
+                            :class="{ 'bg-graydark dark:bg-meta-4': selected === 'dashboard' }"
+                            class="group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"><svg
+                                class="fill-current" width="18" height="18" viewBox="0 0 18 18" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path
                                     d="M6.10322 0.956299H2.53135C1.5751 0.956299 0.787598 1.7438 0.787598 2.70005V6.27192C0.787598 7.22817 1.5751 8.01567 2.53135 8.01567H6.10322C7.05947 8.01567 7.84697 7.22817 7.84697 6.27192V2.72817C7.8751 1.7438 7.0876 0.956299 6.10322 0.956299ZM6.60947 6.30005C6.60947 6.5813 6.38447 6.8063 6.10322 6.8063H2.53135C2.2501 6.8063 2.0251 6.5813 2.0251 6.30005V2.72817C2.0251 2.44692 2.2501 2.22192 2.53135 2.22192H6.10322C6.38447 2.22192 6.60947 2.44692 6.60947 2.72817V6.30005Z"
@@ -45,18 +46,14 @@
                                     d="M15.4689 9.92822H11.8971C10.9408 9.92822 10.1533 10.7157 10.1533 11.672V15.2438C10.1533 16.2001 10.9408 16.9876 11.8971 16.9876H15.4689C16.4252 16.9876 17.2127 16.2001 17.2127 15.2438V11.7001C17.2127 10.7157 16.4252 9.92822 15.4689 9.92822ZM15.9752 15.272C15.9752 15.5532 15.7502 15.7782 15.4689 15.7782H11.8971C11.6158 15.7782 11.3908 15.5532 11.3908 15.272V11.7001C11.3908 11.4188 11.6158 11.1938 11.8971 11.1938H15.4689C15.7502 11.1938 15.9752 11.4188 15.9752 11.7001V15.272Z"
                                     fill="" />
                             </svg>
-
                             Dashboard
                         </a>
                     </li>
-                    <!-- Menu Item Dashboard -->
-
-                    <!-- Menu Item Calendar -->
+                    <!-- Menu Item Destinations -->
                     <li>
-                        <a class="group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
-                            href="/dashboard/destinations"
-                            @click="selected = (selected === 'Destinations' ? '':'Destinations')"
-                            :class="{ 'bg-graydark dark:bg-meta-4': (selected === 'Destinations') && (page === 'destinations') }">
+                        <a href="/dashboard/destinations" @click="selected = 'destinations'"
+                            :class="{ 'bg-graydark dark:bg-meta-4': selected === 'destinations' }"
+                            class="group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4">
                             <svg fill="#fff" width="18px" height="18px" viewBox="0 0 0.54 0.54"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"
@@ -65,26 +62,11 @@
                             Destinations
                         </a>
                     </li>
-                    <!-- Menu Item Calendar -->
-                    {{-- <li>
-                        <a class="group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
-                            href="/dashboard/guests" @click="selected = (selected === 'Users' ? '':'Users')"
-                            :class="{ 'bg-graydark dark:bg-meta-4': (selected === 'Users') && (page === 'users') }">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
-                                fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round">
-                                <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
-                                <circle cx="9" cy="7" r="4" />
-                                <path d="M23 21v-2a4 4 0 00-3-3.87" />
-                                <path d="M16 3.13a4 4 0 010 7.75" />
-                            </svg>
-                            Users
-                        </a>
-                    </li> --}}
+                    <!-- Menu Item Vendor -->
                     <li>
-                        <a class="group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
-                            href="/dashboard/vendor" @click="selected = (selected === 'Vendor' ? '':'Vendor')"
-                            :class="{ 'bg-graydark dark:bg-meta-4': (selected === 'Vendor') && (page === 'vendor') }">
+                        <a href="/dashboard/vendor" @click="selected = 'vendor'"
+                            :class="{ 'bg-graydark dark:bg-meta-4': selected === 'vendor' }"
+                            class="group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4">
                             <svg fill="#fff" width="18px" height="18px" viewBox="0 0 1000 1000"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -93,20 +75,19 @@
                             Vendor
                         </a>
                     </li>
+                    <!-- Menu Item Testimonials -->
                     <li>
-                        <a class="group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
-                            href="/dashboard/testimonials"
-                            @click="selected = (selected === 'Testimonials' ? '':'Testimonials')"
-                            :class="{ 'bg-graydark dark:bg-meta-4': (selected === 'Testimonials') && (page === 'testimonials') }">
+                        <a href="/dashboard/testimonials" @click="selected = 'testimonials'"
+                            :class="{ 'bg-graydark dark:bg-meta-4': selected === 'testimonials' }"
+                            class="group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4">
                             <svg width="18px" height="18px" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"
                                 fill="#fff">
                                 <path fill-rule="evenodd" clip-rule="evenodd"
                                     d="M7.16 3.5C4.73 5.06 3.55 6.67 3.55 9.36c.16-.05.3-.05.44-.05 1.27 0 2.5.86 2.5 2.41 0 1.61-1.03 2.61-2.5 2.61-1.9 0-2.99-1.52-2.99-4.25 0-3.8 1.75-6.53 5.02-8.42L7.16 3.5zm7 0c-2.43 1.56-3.61 3.17-3.61 5.86.16-.05.3-.05.44-.05 1.27 0 2.5.86 2.5 2.41 0 1.61-1.03 2.61-2.5 2.61-1.89 0-2.98-1.52-2.98-4.25 0-3.8 1.75-6.53 5.02-8.42l1.14 1.84h-.01z" />
                             </svg>
-                            Testimonial
+                            Testimonials
                         </a>
                     </li>
-                    <!-- Menu Item Calendar -->
                 </ul>
             </div>
         </nav>
