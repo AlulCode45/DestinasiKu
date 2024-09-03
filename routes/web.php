@@ -37,7 +37,7 @@ Route::prefix('/dashboard')->middleware(AdminMiddleware::class)->group(function 
         Route::post('/store', [DestinationController::class, 'store'])->name('destinations.store');
         Route::get('/{id}/edit', [DestinationController::class, 'edit'])->name('destinations.edit');
         Route::post('/{id}/update', [DestinationController::class, 'update'])->name('destinations.update');
-        Route::get('/delete/{id}', [DestinationController::class, 'destroy'])->name('destinations.destroy');
+        Route::delete('/delete/{id}', [DestinationController::class, 'destroy'])->name('destinations.destroy');
         Route::get('/delete/image/{id}', [DestinationController::class, 'deleteImage'])->name('destinations.delete.image');
     });
 
@@ -48,7 +48,7 @@ Route::prefix('/dashboard')->middleware(AdminMiddleware::class)->group(function 
         Route::post('/store', [CompanyController::class, 'store'])->name('vendor.store');
         Route::get('/{id}/edit', [CompanyController::class, 'edit'])->name('vendor.edit');
         Route::put('/{id}/update', [CompanyController::class, 'update'])->name('vendor.update');
-        Route::get('/delete/{id}', [CompanyController::class, 'destroy'])->name('vendor.destroy');
+        Route::delete('/delete/{id}', [CompanyController::class, 'destroy'])->name('vendor.destroy');
     });
 
     Route::prefix('/testimonials')->group(function () {

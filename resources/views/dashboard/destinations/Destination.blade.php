@@ -30,9 +30,14 @@
                                 class="bg-primary text-white p-2 px-4 rounded-md">View</a>
                             <a href="{{ route('destinations.edit', $destination->id) }}"
                                 class="bg-blue-500 text-white p-2 px-4 rounded-md">Edit</a>
-                            <a href="{{ route('destinations.destroy', $destination->id) }}"
-                                class="bg-red-500 text-white p-2 px-4 rounded-md"
-                                onclick="confirmDelete(event,this.href)">Delete</a>
+
+                            <!-- Form Delete -->
+                            <form action="{{ route('destinations.destroy', $destination->id) }}" method="POST"
+                                onsubmit="return confirmDelete(event)">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="bg-red-500 text-white p-2 px-4 rounded-md">Delete</button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach
@@ -59,5 +64,11 @@
         $(document).ready(function() {
             $('#example').DataTable();
         });
+
+        function confirmDelete(event) {
+            if (!confirm("Apakah Anda yakin ingin menghapus data ini?")) {
+                event.preventDefault();
+            }
+        }
     </script>
 @endsection
