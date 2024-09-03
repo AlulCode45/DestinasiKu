@@ -30,8 +30,10 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
                     <div class="hidden w-full xl:block xl:w-1/2">
                         <div class="px-26 py-17.5 text-center">
                             <a class="mb-5.5 inline-block" href="index.html">
-                                <img class="hidden dark:block" src="src/images/logo/logo.svg" alt="Logo" />
-                                <img class="dark:hidden" src="src/images/logo/logo-dark.svg" alt="Logo" />
+                                <img class="hidden dark:block" src="{{ asset('assets/src/images/logo/logo.svg') }}"
+                                    alt="Logo" />
+                                <img class="dark:hidden" src="{{ asset('assets/src/images/logo/logo-dark.svg') }}"
+                                    alt="Logo" />
                             </a>
                             <span class="mt-15 inline-block">
                                 <img src="{{ asset('assets/src/images/illustration/illustration-03.svg') }}"
